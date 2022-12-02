@@ -78,6 +78,13 @@ describe('BE part: API tests', () => {
             expect(response.body.title).to.be.eq(`${postEntity.title}`);
             expect(response.body.body).to.be.eq(`${postEntity.body}`);
         })
+        cy.request({
+            method: 'GET',
+            url: `/posts/${postEntity.id}`,
+            failOnStatusCode: false
+        }).then(response => {
+            expect(response.status).to.be.eq(200);
+        })
     })
 
     it('Update non-existing entity', () => {
@@ -131,6 +138,16 @@ describe('BE part: API tests', () => {
                 expect(response.body.title).to.be.eq(`${postEntity.title}`);
                 expect(response.body.body).to.be.eq(`${postEntity.body}`);
             })
+        })
+        cy.request({
+            method: 'GET',
+            url: `/posts/${postEntity.id}`,
+            failOnStatusCode: false
+        }).then(response => {
+            expect(response.status).to.be.eq(200);
+            expect(response.body.id).to.be.eq(`${postEntity.id}`);
+            expect(response.body.title).to.be.eq(`${postEntity.title}`);
+            expect(response.body.body).to.be.eq(`${postEntity.body}`);
         })
     })
 
